@@ -8,7 +8,7 @@ author: 'Paul Bloom'
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
+Nicole
 
 # Part 1: Conditionals & logic
 
