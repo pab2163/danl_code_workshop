@@ -1,6 +1,7 @@
 ---
 title: "Data Cleaning Challenge"
 output: html_document
+author: 'Paul Bloom'
 ---
 
 ```{r setup, include=FALSE}
@@ -37,7 +38,9 @@ Make sure this bit works -- if it crashes you'll need to make sure to install th
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 ```
-You can ignore this part -- just setting up the dataframe
+
+
+## This part is setting up the dataframe
 
 ```{r}
 df = data.frame(nums = num_vec, 
