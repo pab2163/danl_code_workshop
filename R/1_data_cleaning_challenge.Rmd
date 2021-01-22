@@ -1,0 +1,58 @@
+---
+title: "Data Cleaning Challenge"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+# Part 1: Conditionals & logic
+
+Below is a numeric vector `num_vec` and a vector of strings `string_vec` . See if you can figure out how to do the following
+
+  * A: select all items in `num_vec` above 50
+  * B: select all odd numbers in `num_vec`
+  * C: select items 2 through 4 in `string_vec`
+  * D: select items in `string_vec` starting with the letter g
+  * E: select items in `string_vec` that contain the letter a
+  * F: select the items in `num_vec` matching the items in `string_vec` containing the letter g
+  * G: select the items in `string_vec` matching the items in num vec that are even
+
+```{r}
+num_vec = c(1:3, 101:103)
+string_vec = c('grape', 'banana', 'fruit', 'banana2', 'grape fruit', 'grapefruit')
+num_vec
+string_vec
+```
+
+
+# Part 2: Indexing dataframe with the tidyverse
+
+
+Make sure this bit works -- if it crashes you'll need to make sure to install the tidyverse correctly with `install.packages('tidyverse')`
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+You can ignore this part -- just setting up the dataframe
+
+```{r}
+df = data.frame(nums = num_vec, 
+                strings = string_vec,
+                random1 = rnorm(n = length(num_vec)),
+                random2 = rnorm(n = length(num_vec)))
+
+head(df)
+```
+
+
+See if you can do the following with the dataframe `df`. For each one, print out the dataframe so you can make sure you've gotten it the way you want!
+
+  * A: Print out all items in the column `strings` containing the string 'grape'
+  * B: Make a dataframe called 'grape_df' that has only rows of the data where the string 'grape' is in strings (as in part A)
+  * C: Make a dataframe called 'random_df' that has only the columns containing the word 'random' 
+  * D: Make a datframe called 'positive_grape', containing the columns 'strings' and 'random1', and only rows where random1 is positive
+
