@@ -1,0 +1,52 @@
+---
+title: "coding_workshop"
+author: "Sameah Algharazi & Nick"
+date: "2/26/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+data= read.csv('familiar_music_database.csv', stringsAsFactors = FALSE)
+```
+
+```{r}
+#GENRE AND YEAR 
+#Y=GENRE COUNT  AND X=YEAR
+```
+
+```{r}
+
+#energy and year 
+
+model_1<- lm(data=data, energy~year)
+summary(model)
+
+plot_1= ggplot(data=data, aes(x=year, y= energy))+
+geom_point()+
+geom_abline(intercept = -1.717e+01,slope = 8.986e-03, color= 'red')
+plot_1
+
+
+```
+
+
+```{r}
+
+#acousticness and year 
+
+model_2<- lm(data=data, acousticness~year)
+summary(model)
+
+plot_2= ggplot(data=data, aes(x=year, y= acousticness))+
+geom_point()+
+geom_abline(intercept = 37.9039922,slope = -0.0190197, color= 'red')
+plot_2
+  
+
+
+```
