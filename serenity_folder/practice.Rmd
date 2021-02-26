@@ -1,0 +1,27 @@
+---
+title: "Coding_practice"
+author: "Serenity"
+date: "2/26/2021"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+database <- read_csv("familiar_music_database.csv", col_names = TRUE)
+```
+
+```{r}
+summary(database)
+
+ggplot(data = database, aes(x = year, y = danceability)) +
+  geom_point() +
+  geom_smooth()
+
+ggplot(data = database, aes(x = year, y = energy)) +
+  geom_point() +
+  geom_smooth() 
+
+ggplot(data = database, aes(x = year, y = liveness)) +
+  geom_point() +
+  geom_smooth() 
+```
