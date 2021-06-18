@@ -1,0 +1,68 @@
+---
+title: "SIPPS 1"
+author: "Anshita"
+date: "09/06/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(car)
+library(broom)
+```
+
+```{r}
+#peek at your data
+head(df, n=10)
+df = Prestige
+df = df %>%
+  filter(type != 'prof')
+```
+```{r}
+#option 1
+df$prestige.c = df$prestige - mean(df$prestige)
+
+#option 2
+df$prestige.c = scale(df$prestige, center = T, scale = F)
+head(df)
+```
+```{r}
+mean(df$prestige.c)
+```
+```{r}
+df$type.d = dplyr::recode(df$type, "bc" = 0, "wc" = 1)
+head(df)
+```
+
+```{r}
+df$type.e = dplyr::recode(df$type, "bc" = -0.5, "wc" = 0.5)
+head(df)
+```
+
+```{r}
+m1 = lm(income ~ prestige.c, data = df)
+summary(m1)
+```
+
+```{r}
+m2 = lm(income ~ type.d, data = df)
+summary(m2)
+```
+```{r}
+m3 = lm(income ~ type.e, data = df)
+summary(m3)
+```
+```{r}
+m4 = lm(income ~ prestige.c*type.e, data = df)
+summary(m4)
+```
+
+```{r}
+df$prestige.c = as.vector(df$prestige.c)
+df$type.e = as.vector(df$type.e)
+```
+
