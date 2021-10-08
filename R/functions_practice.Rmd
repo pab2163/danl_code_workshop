@@ -1,0 +1,67 @@
+---
+title: "functions"
+author: "Paul Bloom"
+date: "10/8/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+
+# "runs all code in the script"
+source('function_script.R')
+df = read_csv('../data/familiar_music_database.csv')
+```
+
+
+# What is a function / why is a function useful?
+
+* Give output from inputs
+* They manipulate data
+* They can be "called" (run) to do specific actions
+* They can be flexible -- to do different actions / take in different data, give diffrent output
+
+What can we use them for?
+
+* We can write a lot less code (your code is cleaner)
+* Helps cut down on errors
+* Increases communication potential of code -- you can share it in a way that isn't too complex
+
+"If you have to do something more than once, write a function to do it"
+
+
+# Anatomy of a function
+```{r}
+# CREATING the function
+
+# outside
+
+
+# RUN the function
+greet(person_name = 'Sarah')
+greet(person_name = 'Anshita')
+
+```
+
+# Best practice: use "return"
+
+```{r}
+
+my_sum = custom_addition(2, 25)
+
+my_sum + 29
+
+my_sum + 1
+
+
+
+bing_crosby = search_artist(artist_name = "bing crOSby", data_frame = df)
+```
+
+
+Print: just display to the console
+Return: send data out of the function (these data can be used further)

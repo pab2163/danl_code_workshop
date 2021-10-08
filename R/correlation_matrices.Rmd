@@ -1,0 +1,60 @@
+---
+title: "Correlation Matrix"
+output: html_document
+author: 'Paul Bloom'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(corrplot)
+library(heatmap3)
+df = read_csv('../data/familiar_music_database.csv')
+survey = read_csv('../data/kaggle_young_people_survey/responses.csv') %>% dplyr::filter(complete.cases(.))
+
+survey = survey[,1:50]
+
+
+df_clean = dplyr::select(df, danceability, energy, loudness, speechiness, acousticness, instrumentalness, liveness, valence, tempo, duration_ms)
+
+
+df_heatmap = dplyr::select(df, danceability, energy, valence, tempo)
+```
+
+
+```{r}
+correlation_matrix = cor(df_clean)
+survey_matrix = cor(survey)
+```
+
+# Make a plot of the correlation matrix
+
+```{r}
+corrplot(correlation_matrix, addCoef.col = 'black', number.cex = .7, method = 'color')
+
+
+corrplot(correlation_matrix, addCoef.col = 'black', number.cex = .7, method = 'color', order = 'FPC')
+
+```
+
+
+# Correlation matrix between participant survey responses
+```{r}
+corrplot(survey_matrix, method = 'color', order = 'hclust', addrect = 5)
+
+```
+# Heatmap : grouping observations
+
+```{r}
+heatmap_matrix = as.matrix(df_heatmap)
+row.names(heatmap_matrix) = df$title
+
+heatmap(heatmap_matrix, scale = 'column', margins = c(6,8), col = cm.colors(256)) 
+
+
+```
+
+
