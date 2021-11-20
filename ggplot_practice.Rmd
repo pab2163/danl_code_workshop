@@ -1,0 +1,38 @@
+---
+title: "DANL_coding"
+author: "Anshita"
+date: "19/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+df = read.csv("data/uncapher_2016_repeated_measures_dataset.csv")
+```
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+plot = ggplot(data = df, mapping = aes(x = groupStatus, y = hitRate, color = groupStatus))+
+  geom_boxplot(color = 'purple', fill = 'black')+
+  geom_jitter(height = 0, width = 0.2)+
+  stat_summary(fun.data = mean_cl_boot)+
+  facet_grid(cols = vars(distPresent))
+  
+plot
+```
+```{r}
+plot2 = ggplot(data = df, aes(x = rtHit, y = dprime, color = groupStatus))+
+  geom_point()+
+  geom_smooth(method = lm)+
+  facet_grid(cols = vars(distPresent))
+  
+plot2
+```
+
