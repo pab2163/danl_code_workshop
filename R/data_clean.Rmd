@@ -1,0 +1,96 @@
+---
+title: "data_cleaning"
+author: "Paul Bloom"
+date: "11/5/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Load in survey data
+
+
+```{r}
+library(tidyverse)
+df = read_csv('../data/kaggle_young_people_survey/responses.csv')
+```
+
+
+# Numeric indexing of dataframes
+
+Reference data in the dataframes using [] and numbers
+
+
+```{r}
+# give first value in column Music
+df$Music[1]
+df$`Responding to a serious letter`[4:20]
+
+
+# give first value in first column
+# [row, column]
+df[3:4,1:4]
+
+# replace a value in the dataframe
+df[1,4] = 3
+df[1,4]
+```
+
+# using the tidyverse for data cleaning
+
+Getting certain rows: `dplyr::filter`
+  Exclude certain pieces of data
+  Analyze/plot subsets of data
+  
+Getting certain columns: `dplyr::select`
+  Reducing data size
+  Focusing on things you want to work with
+
+
+Why tidyverse is so useful? We can access columns without `$`
+
+SQL -- this is where a lot of the tidy commands are coming from 
+  "relational databases"
+
+## using `dplyr::select` to get certain columns
+```{r}
+df_cleaned = df %>% 
+  dplyr::select(-c(Folk, Punk, Dance)) %>%
+  dplyr::select(contains('p', ignore.case = FALSE))
+  
+df %>%
+  dplyr::select(starts_with('spending'))
+
+df_end = df %>%
+  dplyr::select(ends_with('s') & contains('p'))
+```
+
+## using `dplyr::filter` to get certain rows
+
+how does filter work?
+
+```{r}
+country1 = df_cleaned %>% dplyr::filter(Country == 1 | Musical == Rock)
+
+sum(is.na(df_cleaned$Country))
+
+# base R way of doing it
+country2 = df_cleaned[df_cleaned$Country == 1, ]
+
+df_cleaned$Country == 1
+
+sum(is.na(country1$Country))
+sum(is.na(country2$Country))
+```
+
+# Multistep piping
+
+```{r}
+df2 = df %>% 
+  dplyr::select(-c(Folk, Punk, Dance)) %>%
+  dplyr::select(contains('c', ignore.case = TRUE)) %>%
+  dplyr::filter(Country == 1 & Musical == Rock & Alcohol != 'drink a lot')
+```

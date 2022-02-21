@@ -1,0 +1,73 @@
+---
+title: "ggplot_spring_2022_danl"
+author: "Paul Bloom"
+date: "1/21/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Load libraries & data
+
+```{r}
+# load in ggplot
+library(ggplot2)
+library(tidyverse)
+
+# if you don't already have ggplot2 installed
+# install.packages('ggplot2')
+
+# load in the data from online
+
+nhanes = read.csv('https://raw.githubusercontent.com/cu-psych-computing/cu-psych-comp-tutorial/master/content/tutorials/r-core/4-plotting/NHANES1990.csv')
+
+```
+# A little more data cleaning
+
+```{r}
+nhanes = dplyr::mutate(nhanes,
+                 Age = Age/12, # convert age to years
+                 Urban = dplyr::recode(Urban, '1' = 'Metro Area', '2' = 'Non-Metro Area'),
+                 Region = dplyr::recode(Region, '1' = 'Northeast', '2' = 'Midwest', '3' = 'South', '4' = 'West'))
+
+nhanes
+```
+
+# Starting plotting
+
+```{r}
+age_weight_plot1 = ggplot(data = nhanes, mapping = aes(x = Age, y = Weight)) +
+  geom_point(size = 1, alpha = .1) +
+  geom_smooth(method = lm)
+
+age_weight_plot1
+```
+
+# Histogram
+
+```{r}
+age_histogram = ggplot(data = nhanes, mapping = aes(x = Age)) +
+  geom_histogram(bins = 100, fill = 'purple')
+
+age_histogram 
+```
+
+# Categorical Plots
+
+category on x axis, continuous on y axis
+
+
+```{r}
+ggplot(data = nhanes, mapping = aes(x = Region, y = Height)) +
+  geom_jitter(height = 0, width = 0.15, size = 0.1, alpha= 0.3) +
+  geom_boxplot()
+
+
+ggplot(data = nhanes, mapping = aes(x = Region, y = Height)) +
+  stat_summary(fun.data = mean_cl_boot)
+```
+
+
